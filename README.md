@@ -1,6 +1,8 @@
 # Big-Data-Basics
-Integrate popular big data tools with project
-* MongoDB
-* Elasticsearch
-* Apache Kafka
-* Apache Spark
+Integrate popular Big Data tools with project
+### The following technologies help for compatibility
+* Java SE 11 
+* MongoDB 5.0.9
+* Elasticsearch - elasticsearch-6.8.16
+* Apache Kafka - kafka_2.11-2.4.1
+* Apache Spark - spark-2.4.4-bin-hadoop2.7
