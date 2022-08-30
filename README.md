@@ -1,5 +1,6 @@
 # Big-Data-Basics
-Integrate popular Big Data tools with project
+Learn Big Data tools integration with Java
+
 ### The following technologies help for compatibility
 * Java SE 11 
 * MongoDB 5.0.9
