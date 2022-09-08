@@ -1,7 +1,8 @@
 # Big-Data-Basics
-Learn Big Data tools integration with Java
+Learn Big Data tools and integrate them into projects with Java
 
-The following technologies help for compatibility:
+## Resources
+For compatibility, the following technologies must be the same version:
 * Java SE 11 
 * MongoDB 5.0.9
 * Elasticsearch - elasticsearch-6.8.16
