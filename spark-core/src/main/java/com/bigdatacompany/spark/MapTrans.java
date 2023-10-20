@@ -17,21 +17,17 @@ import java.util.Iterator;
 
 public class MapTrans {
     public static void main(String[] args) {
-
         System.setProperty("hadoop.home.dir", "C:\\hadoop");
 
         JavaSparkContext javaSparkContext = new JavaSparkContext("local", "Map Transformation Spark");
-
-        JavaRDD<String> rawData = javaSparkContext.textFile("C:\\Users\\Master\\Desktop\\Big Data\\Datasets\\person.csv");
+        JavaRDD<String> rawData = javaSparkContext.textFile("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\person.csv");
 
       // -Distinct-
-
         /*  System.out.println("count: " + rawData.count());
         JavaRDD<String> distData = rawData.distinct();
         System.out.println("distinct count: " + distData.count());*/
 
         // --FlatMap--
-
        /* JavaRDD<String> stringJavaRDD = rawData.flatMap(new FlatMapFunction<String, String>() {
             @Override
             public Iterator<String> call(String s) throws Exception {
@@ -42,7 +38,6 @@ public class MapTrans {
         System.out.println(stringJavaRDD.count());*/
 
         // --Map--
-
         JavaRDD<Person> loadPerson = rawData.map(new Function<String, Person>() {
             @Override
             public Person call(String line) throws Exception {
@@ -67,7 +62,6 @@ public class MapTrans {
 
 
         // --Filter--
-
       /*  JavaRDD<Person> personFromCanada = loadPerson.filter(new Function<Person, Boolean>() {
             @Override
             public Boolean call(Person person) throws Exception {
@@ -87,7 +81,6 @@ public class MapTrans {
 
 
         // --MapToPair--
-
        /* JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
             @Override
             public Tuple2<String, String> call(Person person) throws Exception {

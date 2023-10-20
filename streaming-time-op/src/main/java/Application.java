@@ -9,7 +9,7 @@ public class Application {
 
         System.setProperty("hadoop.home.dir","C:\\hadoop");
 
-        SparkSession sparkSession=SparkSession.builder().master("local").appName("streaming-time-op").getOrCreate();
+        SparkSession sparkSession = SparkSession.builder().master("local").appName("streaming-time-op").getOrCreate();
 
         Dataset<Row> raw_data = sparkSession.readStream()
                 .format("socket")
@@ -19,8 +19,10 @@ public class Application {
 
         Dataset<Row> products = raw_data.as(Encoders.tuple(Encoders.STRING(), Encoders.TIMESTAMP())).toDF("product", "timestamp");
 
-        Dataset<Row> resultData = products.groupBy(functions.window(products.col("timestamp"), "1 minute"),
-                products.col("product")).count().orderBy("window");
+        Dataset<Row> resultData = products.groupBy(
+                functions.window(products.col("timestamp"), "1 minute"),
+                products.col("product")
+        ).count().orderBy("window");
 
         StreamingQuery start = resultData.writeStream()
                 .outputMode("complete")

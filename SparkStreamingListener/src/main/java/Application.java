@@ -8,14 +8,18 @@ import org.apache.spark.sql.streaming.StreamingQueryException;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.concurrent.TimeoutException;
 
 public class Application {
-    public static void main(String[] args) throws StreamingQueryException {
+    public static void main(String[] args) throws StreamingQueryException, TimeoutException {
         System.setProperty("hadoop.home.dir","C:\\hadoop");
 
         SparkSession sparkSession=SparkSession.builder().master("local").appName("SparkStreamingMessageListener").getOrCreate();
-
-        Dataset<Row> rawData = sparkSession.readStream().format("socket").option("host", "localhost").option("port", "8005").load();
+        Dataset<Row> rawData = sparkSession.readStream()
+                .format("socket")
+                .option("host", "localhost")
+                .option("port", "8005")
+                .load();
 
         Dataset<String> data = rawData.as(Encoders.STRING());
 
@@ -29,7 +33,6 @@ public class Application {
         Dataset<Row> groupedData = stringDataset.groupBy("value").count();
 
         StreamingQuery start = groupedData.writeStream().outputMode("complete").format("console").start();
-
         start.awaitTermination();
     }
 }

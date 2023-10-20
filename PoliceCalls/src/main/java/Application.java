@@ -8,7 +8,6 @@ import org.apache.spark.sql.types.StructType;
 
 public class Application {
     public static void main(String[] args) {
-
         System.setProperty("hadoop.home.dir", "C:\\hadoop");
 
         StructType schema = new StructType().add("recordId", DataTypes.IntegerType)
@@ -20,6 +19,7 @@ public class Application {
                 .add("incidentLocation", DataTypes.StringType)
                 .add("location", DataTypes.StringType);
 
+        // Add MongoDB output uri config to session
         SparkSession sparkSession = SparkSession.builder()
                 .master("local")
                 .appName("Police Call Service")
@@ -27,16 +27,18 @@ public class Application {
                 .getOrCreate();
 
         Dataset<Row> rawData = sparkSession.read()
-                .option("header",true)
+                .option("header", true)
                 .schema(schema)
-                .csv("C:\\Users\\Master\\Desktop\\Big Data\\Datasets\\police911.csv");
+                .csv("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\police911.csv");
 
         Dataset<Row> data = rawData.filter(rawData.col("recordId").isNotNull());
 
 //        data.groupBy("incidentLocation").count().sort(functions.desc("count")).show();
         Dataset<Row> descriptionDS = data.filter(data.col("description").notEqual("911/NO  VOICE"));
-        Dataset<Row> resultDS = descriptionDS.groupBy("incidentLocation", "description").count().sort(functions.desc("count"));
+        Dataset<Row> resultDS = descriptionDS.groupBy("incidentLocation", "description").count()
+                .sort(functions.desc("count"));
 
+        // Write dataset to MongoDB
         MongoSpark.write(resultDS).mode("overwrite").save();
 
     }

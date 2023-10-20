@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3c687286-8895-4792-9f7d-542734cf8194" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/PoliceCalls/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PoliceCalls/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PoliceCalls/src/main/java/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/PoliceCalls/src/main/java/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PoliceCalls/target/classes/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/PoliceCalls/target/classes/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkStreamingListener/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SparkStreamingListener/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkStreamingListener/src/main/java/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/SparkStreamingListener/src/main/java/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkStreamingListener/src/main/java/IoTWeather.java" beforeDir="false" afterPath="$PROJECT_DIR$/SparkStreamingListener/src/main/java/IoTWeather.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkStreamingListener/target/classes/Application$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/SparkStreamingListener/target/classes/Application$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkStreamingListener/target/classes/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/SparkStreamingListener/target/classes/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparkStreamingListener/target/classes/IoTWeather.class" beforeDir="false" afterPath="$PROJECT_DIR$/SparkStreamingListener/target/classes/IoTWeather.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elastic-java-ent/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/elastic-java-ent/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elastic-java-ent/target/classes/com/bigdatacompany/elastic/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/elastic-java-ent/target/classes/com/bigdatacompany/elastic/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-mongodb-ent/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/java-mongodb-ent/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-mongodb-ent/src/main/java/com/bigdatacompany/mongodbent/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-mongodb-ent/src/main/java/com/bigdatacompany/mongodbent/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-mongodb-ent/target/classes/com/bigdatacompany/mongodbent/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/java-mongodb-ent/target/classes/com/bigdatacompany/mongodbent/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-java-ent/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-java-ent/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-java-ent/src/main/java/com/bigdatacompany/kafka/ConsumerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-java-ent/src/main/java/com/bigdatacompany/kafka/ConsumerApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-java-ent/src/main/java/com/bigdatacompany/kafka/ProducerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-java-ent/src/main/java/com/bigdatacompany/kafka/ProducerApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-java-ent/target/classes/com/bigdatacompany/kafka/ConsumerApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-java-ent/target/classes/com/bigdatacompany/kafka/ConsumerApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-java-ent/target/classes/com/bigdatacompany/kafka/ProducerApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-java-ent/target/classes/com/bigdatacompany/kafka/ProducerApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-core/src/main/java/com/bigdatacompany/spark/ActionApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/src/main/java/com/bigdatacompany/spark/ActionApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-core/src/main/java/com/bigdatacompany/spark/FirstExam.java" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/src/main/java/com/bigdatacompany/spark/FirstExam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-core/src/main/java/com/bigdatacompany/spark/MapTrans.java" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/src/main/java/com/bigdatacompany/spark/MapTrans.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-core/target/classes/com/bigdatacompany/spark/ActionApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/target/classes/com/bigdatacompany/spark/ActionApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-core/target/classes/com/bigdatacompany/spark/FirstExam.class" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/target/classes/com/bigdatacompany/spark/FirstExam.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-core/target/classes/com/bigdatacompany/spark/MapTrans$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/target/classes/com/bigdatacompany/spark/MapTrans$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-core/target/classes/com/bigdatacompany/spark/MapTrans.class" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/target/classes/com/bigdatacompany/spark/MapTrans.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-hdfs-exam/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spark-hdfs-exam/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-hdfs-exam/src/main/java/com/bigdatacompany/sparkhdfs/HdfsReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/spark-hdfs-exam/src/main/java/com/bigdatacompany/sparkhdfs/HdfsReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-sql/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spark-sql/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-sql/src/main/java/com/bigdatacompany/spark/MyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/spark-sql/src/main/java/com/bigdatacompany/spark/MyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-sql/src/main/java/com/bigdatacompany/spark/SparkProductExam.java" beforeDir="false" afterPath="$PROJECT_DIR$/spark-sql/src/main/java/com/bigdatacompany/spark/SparkProductExam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-sql/src/main/java/com/bigdatacompany/spark/SparkSqlFirst.java" beforeDir="false" afterPath="$PROJECT_DIR$/spark-sql/src/main/java/com/bigdatacompany/spark/SparkSqlFirst.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-sql/target/classes/com/bigdatacompany/spark/MyTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/spark-sql/target/classes/com/bigdatacompany/spark/MyTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-sql/target/classes/com/bigdatacompany/spark/SparkProductExam.class" beforeDir="false" afterPath="$PROJECT_DIR$/spark-sql/target/classes/com/bigdatacompany/spark/SparkProductExam.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spark-sql/target/classes/com/bigdatacompany/spark/SparkSqlFirst.class" beforeDir="false" afterPath="$PROJECT_DIR$/spark-sql/target/classes/com/bigdatacompany/spark/SparkSqlFirst.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkstreamingkafka/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sparkstreamingkafka/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkstreamingkafka/src/main/java/ProducerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sparkstreamingkafka/src/main/java/ProducerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkstreamingkafka/src/main/java/SearchProductModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkstreamingkafka/src/main/java/StreamingConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sparkstreamingkafka/src/main/java/StreamingConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkstreamingkafka/src/main/java/myTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/sparkstreamingkafka/src/main/java/myTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkstreamingkafka/target/classes/ProducerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/sparkstreamingkafka/target/classes/ProducerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkstreamingkafka/target/classes/SearchProductModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkstreamingkafka/target/classes/StreamingConsumer.class" beforeDir="false" afterPath="$PROJECT_DIR$/sparkstreamingkafka/target/classes/StreamingConsumer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparkstreamingkafka/target/classes/myTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/sparkstreamingkafka/target/classes/myTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/streaming-time-op/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/streaming-time-op/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/streaming-time-op/src/main/java/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/streaming-time-op/src/main/java/Application.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2X2lfqzVTTrCKJ1UHdOm0LPaGEI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Polat/Desktop/Introduction-to-Big-Data/spark-core"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c687286-8895-4792-9f7d-542734cf8194" name="Changes" comment="" />
+      <created>1697835161947</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1697835161947</updated>
+    </task>
+    <servers />
+  </component>
+</project>

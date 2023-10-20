@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import model.SearchProductModel;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -11,18 +12,16 @@ import java.util.Scanner;
 
 public class ProducerTest {
     public static void main(String[] args) {
-
-        Scanner read = new Scanner(System.in);
         String topic = "search";
+        Scanner read = new Scanner(System.in);
         Gson gson = new Gson();
 
-        Properties properties = new Properties();
+        Properties configs = new Properties();
+        configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer");
+        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
 
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer");
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-
-        Producer producer = new KafkaProducer<String, String>(properties);
+        Producer producer = new KafkaProducer<String, String>(configs);
 
 
         while (true){
@@ -39,6 +38,7 @@ public class ProducerTest {
 
             ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topic, json);
             producer.send(rec);
+
             System.out.println("Sent Kafka!!");
 
         }

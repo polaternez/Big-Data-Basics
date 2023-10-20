@@ -11,11 +11,9 @@ import java.util.Scanner;
 
 public class ProducerApp {
     public static void main(String[] args) {
-
         Scanner read = new Scanner(System.in);
 
         Properties config = new Properties();
-
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, new StringSerializer().getClass().getName());
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, new StringSerializer().getClass().getName());
@@ -29,7 +27,7 @@ public class ProducerApp {
         while(true){
             System.out.println("Kafka'ya gönderilecek data: ");
             String key = read.nextLine();
-            ProducerRecord<String,String> rec = new ProducerRecord<String,String>("search", key);
+            ProducerRecord<String, String> rec = new ProducerRecord<String,String>("search", key);
             producer.send(rec);
         }
     }

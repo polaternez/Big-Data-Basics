@@ -6,8 +6,7 @@ import org.apache.spark.sql.types.StructType;
 
 public class myTest {
     public static void main(String[] args) throws StreamingQueryException {
-
-        System.setProperty("hadoop.home.dir", "C:\\hadoop");
+        System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
         SparkSession sparkSession = SparkSession.builder().master("local").appName("streaming-kafka").getOrCreate();
 
@@ -31,12 +30,12 @@ public class myTest {
         countDS.show();*/
 
         Dataset<Row> countDS = rawDS.groupBy("product").count();
-        
-        StreamingQuery start = countDS.writeStream()
+
+        StreamingQuery query = countDS.writeStream()
                 .outputMode("update")
                 .format("console")
                 .start();
 
-        start.awaitTermination();
+        query.awaitTermination();
     }
 }

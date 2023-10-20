@@ -7,9 +7,12 @@ import org.apache.spark.sql.functions;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructType;
 
+import static org.apache.spark.sql.functions.expr;
+import static org.apache.spark.sql.functions.when;
+
 public class SparkSqlFirst {
     public static void main(String[] args) {
-        System.setProperty("hadoop.home.dir", "C:\\hadoop");
+        System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
         StructType schema = new StructType()
                 .add("first_name", DataTypes.StringType)
@@ -24,18 +27,17 @@ public class SparkSqlFirst {
         Dataset<Row> rawDS = sparkSession.read()
                 .option("header", true)
                 .schema(schema)
-                .csv("C:\\Users\\Master\\Desktop\\Big Data\\Datasets\\person.csv");
+                .csv("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\person.csv");
 
         rawDS.show();
         rawDS.printSchema();
+//        rawDS.summary().show();
 
         // --select--
-
        /* Dataset<Row> selectDS = rawDS.select("first_name", "last_name");
-        selectDS.show((int)selectDS.count());*/
+        selectDS.show((int)selectDS.count()); // display all rows */
 
         // --filter--
-
         Dataset<Row> selDS = rawDS.select("first_name", "last_name", "email", "country", "age");
 /*
 //        Dataset<Row> chinaDS = selDS.filter(selDS.col("country").equalTo("China"));
@@ -52,25 +54,27 @@ public class SparkSqlFirst {
         countryDS.show();*/
 
         // --sort--
-
 /*//        Dataset<Row> ageGt50DS = selDS.filter("age >= 50").sort("age");
         Dataset<Row> ageGt50DS = selDS.filter("age >= 50").sort(functions.desc("age"));
 
         ageGt50DS.show();*/
 
         // --withColumn--
-/*
-//        Dataset<Row> wcDS = rawDS.withColumn("first_name_test", rawDS.col("first_name"));
-        Dataset<Row> wcDS = rawDS.withColumn("gender_new",
-                when(functions.col("gender").equalTo("Female"), 0)
-                .when(functions.col("gender").equalTo("Male"), 1)
-                        .otherwise(2));
+/*//        Dataset<Row> wcDS = rawDS.withColumn("first_name_test", rawDS.col("first_name"));
 
+//        Dataset<Row> wcDS = rawDS.withColumn("gender_new",
+//                when(functions.col("gender").equalTo("Female"), 0)
+//                        .when(functions.col("gender").equalTo("Male"), 1)
+//                        .otherwise(2)
+//        );
+
+        Dataset<Row> wcDS = rawDS.withColumn("age_test", expr("age * age"));
         wcDS.show();*/
 
-        // --groupBy--
 
-       /* Dataset<Row> countryGroupDS = selDS.groupBy("country").count();
+        // --groupBy--
+        /*Dataset<Row> countryGroupDS = selDS.groupBy("country").count().sort(functions.desc("count"));
+
         countryGroupDS.show();*/
 
     }

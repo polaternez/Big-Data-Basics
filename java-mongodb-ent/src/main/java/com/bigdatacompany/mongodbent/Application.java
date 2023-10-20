@@ -14,7 +14,6 @@ import java.util.Arrays;
 
 public class Application {
     public static void main(String[] args) {
-
         MongoClient client = new MongoClient("localhost",27017);
         MongoDatabase infoDB = client.getDatabase("info");
         MongoCollection<Document> personnelCollection = infoDB.getCollection("personnel");
@@ -34,7 +33,7 @@ public class Application {
 
 //         personnelCollection.insertOne(Document.parse(data.toJson()));
 
-  /*      Document parse = Document.parse(data.toJson());
+        /*Document parse = Document.parse(data.toJson());
         Document parse2 = Document.parse(data2.toJson());
 
         personnelCollection.insertMany(Arrays.asList(parse, parse2));*/

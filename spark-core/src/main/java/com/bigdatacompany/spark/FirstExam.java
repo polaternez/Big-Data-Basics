@@ -8,17 +8,17 @@ import java.util.List;
 
 public class FirstExam {
     public static void main(String[] args) {
-
-        System.setProperty("hadoop.home.dir", "C:\\hadoop");
+        System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
         JavaSparkContext javaSparkContext = new JavaSparkContext("local", "First Exam Spark");
 
-        //Data Load
-        JavaRDD<String> firstData = javaSparkContext.textFile("C:\\Users\\Master\\Desktop\\Big Data\\Datasets\\first-data.txt");
+        // Load data
+        JavaRDD<String> firstData = javaSparkContext.textFile("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\first-data.txt");
 
         System.out.println(firstData.count());
         System.out.println(firstData.first());
 
+        // List to RDD
         List<String> data = Arrays.asList("big data", "elasticsearch", "first", "spark", "hadoop");
         JavaRDD<String> secondData = javaSparkContext.parallelize(data);
 
