@@ -1,0 +1,29 @@
+# Install Kafka:
+1_Download Apache Kafka-2.4.1
+2_Edit config files:
+  a)Kafka config file ".\config\server.properties"
+    - log.dirs=C:/bigdata/kafka_2.12-2.4.1/kafka-logs
+
+  b)Zookeeper config file ".\config\zookeeper.properties"
+    - dataDir=C:/bigdata/kafka_2.12-2.4.1/zookeeper-logs
+
+# Start Kafka on Windows:
+1_Start Zookeeper:
+  - C:\bigdata\kafka_2.12-2.4.1\bin\windows>zookeeper-server-start.bat ..\..\config\zookeeper.properties
+
+2_Start Kafka:
+  - C:\bigdata\kafka_2.12-2.4.1\bin\windows>kafka-server-start.bat ..\..\config\server.properties
+
+# Kafka shell commands:
+1_Create topic:
+  - .\bin\windows>kafka-topics.bat --create --zookeeper localhost:2181 --topic <topic_name> --partitions <3>--replication-factor <1>
+
+2_List all topics:
+  - .\bin\windows>kafka-topics.bat --list --zookeeper localhost:2181 
+
+3_Consume data from Kafka:
+  - .\bin\windows>kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <topic_name> --from-beginning 
+
+4_Produce data to Kafka:
+  - .\bin\windows>kafka-console-producer.bat --broker-list localhost:9092 --topic <topic_name>
+

@@ -1,0 +1,15 @@
+# Install Apache Spark
+1_Download Java SE-jdk-11.015.1
+2_Download Apache Spark - spark-2.4.4-bin-hadoop2.7
+3_Download winutils.exe:
+  - Github-steveloughran/winutils/hadoop-2.7.1 
+
+4_Add environment variables:
+  - SPARK_HOME: C:\spark\spark-2.4.4-bin-hadoop2.7
+    - for path: %SPARK_HOME%\bin
+  - HADOOP_HOME: C:\hadoop\
+    - for path: %HADOOP_HOME%\bin
+
+5_Check installation complete
+  - On console:
+    > spark-shell
