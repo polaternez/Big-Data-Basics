@@ -11,18 +11,21 @@ public class IoTWeather {
     public static void main(String[] args) throws StreamingQueryException {
         System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("SparkStreamingMessageListener").getOrCreate();
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("SparkStreamingMessageListener")
+                .getOrCreate();
+
         StructType weatherType = new StructType()
                 .add("quarter", DataTypes.StringType)
                 .add("heatType", DataTypes.StringType)
                 .add("heat", DataTypes.IntegerType)
                 .add("windType", DataTypes.StringType)
                 .add("wind", DataTypes.IntegerType);
-
-        Dataset<Row> rawData = sparkSession.readStream()
+        Dataset<Row> rawData = spark.readStream()
                 .schema(weatherType)
                 .option("sep", ",")
-                .csv("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\sparkstreaming\\*");
+                .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\sparkstreaming\\*");
 
         Dataset<Row> heatData = rawData.select("quarter", "heat", "wind")
                 .where("heat>29 AND wind>29");
@@ -30,7 +33,6 @@ public class IoTWeather {
         StreamingQuery query = heatData.writeStream()
                 .format("console")
                 .start();
-
         query.awaitTermination();
 
     }

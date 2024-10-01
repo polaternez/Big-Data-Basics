@@ -8,13 +8,16 @@ public class myTest {
     public static void main(String[] args) throws StreamingQueryException {
         System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("streaming-kafka").getOrCreate();
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("streaming-kafka")
+                .getOrCreate();
+        spark.sparkContext().setLogLevel("ERROR");
 
         StructType schema = new StructType()
                 .add("product", DataTypes.StringType)
                 .add("time", DataTypes.StringType);
-
-        Dataset<Row> loadDS = sparkSession.readStream().format("kafka")
+        Dataset<Row> loadDS = spark.readStream().format("kafka")
                 .option("kafka.bootstrap.servers", "localhost:9092")
                 .option("subscribe", "search")
                 .load();
@@ -22,11 +25,9 @@ public class myTest {
         Dataset<Row> rawDS = loadDS.selectExpr("CAST(value AS STRING)")
                 .select(functions.from_json(functions.col("value"), schema).as("data"))
                 .select("data.*");
-
 //        rawDS.show();
 
        /* Dataset<Row> countDS = rawDS.groupBy(functions.window(rawDS.col("time"), "1 minute"), rawDS.col("product")).count();
-
         countDS.show();*/
 
         Dataset<Row> countDS = rawDS.groupBy("product").count();
@@ -35,7 +36,6 @@ public class myTest {
                 .outputMode("update")
                 .format("console")
                 .start();
-
         query.awaitTermination();
     }
 }

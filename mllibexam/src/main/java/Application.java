@@ -9,21 +9,21 @@ import org.apache.spark.sql.SparkSession;
 public class Application {
     public static void main(String[] args) {
 
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("spark-mllib").getOrCreate();
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("spark-mllib")
+                .getOrCreate();
 
-        Dataset<Row> dataset = sparkSession.read().format("csv")
+        Dataset<Row> dataset = spark.read().format("csv")
                 .option("header", true)
                 .option("inferSchema", true)
-                .load("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\MLlib\\satis.csv");
-
+                .load("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\MLlib\\satis.csv");
 //        dataset.show();
 
-        // --Data Preprocessing--
-
+        // --Data preprocessing--
         VectorAssembler vectorAssembler = new VectorAssembler()
                 .setInputCols(new String[]{"Ay"})
                 .setOutputCol("features");
-
         Dataset<Row> transformedDS = vectorAssembler.transform(dataset);
         Dataset<Row> finalDS = transformedDS.select("features", "Satis");
 
@@ -32,32 +32,26 @@ public class Application {
         Dataset<Row> trainData = splits[0];
         Dataset<Row> testData = splits[1];
 
-
-        // --Create Model--
+        // --Create model--
         LinearRegression lr = new LinearRegression();
         lr.setLabelCol("Satis");
 
-        // --Train Model--
+        // --Train model--
         LinearRegressionModel model = lr.fit(trainData);
         LinearRegressionTrainingSummary summary = model.summary();
-
-        System.out.println("r2 score: " + summary.r2());
+        System.out.println("R2 score: " + summary.r2());
 
         // --Predictions--
         Dataset<Row> predictions = model.transform(testData);
-
         predictions.show();
 
-        // --New Data Predictions--
-       /* Dataset<Row> newData = sparkSession.read().format("csv")
+        // --Predict with new data--
+        /*Dataset<Row> newData = spark.read().format("csv")
                 .option("header", true)
                 .option("inferSchema", true)
-                .load("C:\\Users\\Polat\\Desktop\\Big Data\\Datasets\\MLlib\\test.csv");
-
+                .load("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\MLlib\\test.csv");
         Dataset<Row> transformedNewData = vectorAssembler.transform(newData);
-
         Dataset<Row> newPredictions = model.transform(transformedNewData);
-
         newPredictions.show();*/
     }
 }

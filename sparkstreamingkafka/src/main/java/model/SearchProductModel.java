@@ -4,14 +4,12 @@ public class SearchProductModel {
     private String product;
     private String time;
 
-
     public SearchProductModel(){
     }
     public SearchProductModel(String product, String time) {
         this.product = product;
         this.time = time;
     }
-
 
     public String getProduct() {
         return product;

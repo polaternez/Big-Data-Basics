@@ -12,16 +12,15 @@ import java.util.Properties;
 
 public class ConsumerApp {
     public static void main(String[] args) {
-        Properties config = new Properties();
-        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, new StringDeserializer().getClass().getName());
-        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, new StringDeserializer().getClass().getName());
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, "bigdataTeam1");
-        config.put(ConsumerConfig.CLIENT_ID_CONFIG, "exam1");
+        Properties props = new Properties();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, new StringDeserializer().getClass().getName());
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, new StringDeserializer().getClass().getName());
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "bigdataTeam1");
+        props.put(ConsumerConfig.CLIENT_ID_CONFIG, "exam1");
 
-        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(config);
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(props);
         kafkaConsumer.subscribe(Arrays.asList("search"));
-
         while(true){
             ConsumerRecords<String,String> records = kafkaConsumer.poll(Duration.ZERO);
             for (ConsumerRecord<String, String> rec : records){

@@ -13,20 +13,22 @@ public class WriterApp {
     public static void main(String[] args) {
         System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("Istanbul Sites")
+                .getOrCreate();
+
         StructType locSchema = new StructType()
                 .add("lat", DataTypes.DoubleType)
                 .add("lon", DataTypes.DoubleType);
-
         StructType schema = new StructType()
                 .add("location", locSchema)
                 .add("stitle", DataTypes.StringType);
 
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("Istanbul Sites").getOrCreate();
-
-        Dataset<Row> siteDS = sparkSession.read()
+        Dataset<Row> siteDS = spark.read()
                 .option("multiline", true)
                 .schema(schema)
-                .json("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\Applications\\GeogspatialQuery\\istanbul_siteler.json");
+                .json("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\Applications\\GeogspatialQuery\\istanbul_siteler.json");
 
         // JavaEsSpark from elasticsearch-spark-20_2.12
         JavaEsSpark.saveJsonToEs(siteDS.toJSON().toJavaRDD(), "sites/_doc");

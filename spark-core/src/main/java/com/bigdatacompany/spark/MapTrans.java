@@ -17,24 +17,23 @@ import java.util.Iterator;
 
 public class MapTrans {
     public static void main(String[] args) {
-        System.setProperty("hadoop.home.dir", "C:\\hadoop");
+        System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
         JavaSparkContext javaSparkContext = new JavaSparkContext("local", "Map Transformation Spark");
-        JavaRDD<String> rawData = javaSparkContext.textFile("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\person.csv");
+        JavaRDD<String> rawData = javaSparkContext.textFile("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\person.csv");
 
       // -Distinct-
-        /*  System.out.println("count: " + rawData.count());
+        /*System.out.println("count: " + rawData.count());
         JavaRDD<String> distData = rawData.distinct();
         System.out.println("distinct count: " + distData.count());*/
 
         // --FlatMap--
-       /* JavaRDD<String> stringJavaRDD = rawData.flatMap(new FlatMapFunction<String, String>() {
+        /*JavaRDD<String> stringJavaRDD = rawData.flatMap(new FlatMapFunction<String, String>() {
             @Override
             public Iterator<String> call(String s) throws Exception {
                 return Arrays.asList(s.split(",")).iterator();
             }
         });
-
         System.out.println(stringJavaRDD.count());*/
 
         // --Map--
@@ -48,7 +47,6 @@ public class MapTrans {
                 p.setEmail(data[2]);
                 p.setGender(data[3]);
                 p.setCountry(data[4]);
-
                 return  p;
             }
         });
@@ -56,46 +54,45 @@ public class MapTrans {
         /*loadPerson.foreach(new VoidFunction<Person>() {
             @Override
             public void call(Person person) throws Exception {
-                System.out.println("First Name: " + person.getFirst_name() + " - Last Name: " + person.getLast_name());
+                System.out.println("first_name: " + person.getFirst_name()
+                        + " - last_name: " + person.getLast_name());
             }
         });*/
 
 
         // --Filter--
-      /*  JavaRDD<Person> personFromCanada = loadPerson.filter(new Function<Person, Boolean>() {
+        /*JavaRDD<Person> personFromCanada = loadPerson.filter(new Function<Person, Boolean>() {
             @Override
             public Boolean call(Person person) throws Exception {
                 return person.getCountry().equals("Canada") && person.getGender().equals("Male");
             }
         });
-
         System.out.println("Person Count: " + personFromCanada.count());
 
         personFromCanada.foreach(new VoidFunction<Person>() {
             @Override
             public void call(Person person) throws Exception {
-                System.out.println(person.getFirst_name() + " " + person.getLast_name() + " " + person.getCountry() + " " + person.getGender());
+                System.out.println(person.getFirst_name() + " " + person.getLast_name()
+                        + " - " + person.getCountry() + " - " + person.getGender());
             }
-        });
-*/
+        });*/
 
 
         // --MapToPair--
-       /* JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
+        /*JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
             @Override
             public Tuple2<String, String> call(Person person) throws Exception {
                 return new Tuple2<String, String>(person.getEmail(), person.getCountry());
             }
         });
-
         pairRdd.foreach(new VoidFunction<Tuple2<String, String>>() {
             @Override
             public void call(Tuple2<String, String> data) throws Exception {
-                System.out.println("Email: " + data._1 + " -> Country: " + data._2);
+                System.out.println("Email: " + data._1 + " - Country: " + data._2);
             }
         });*/
 
-       /* JavaPairRDD<String, Person> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, Person>() {
+        /*JavaPairRDD<String, Person> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, Person>() {
             @Override
             public Tuple2<String, Person> call(Person person) throws Exception {
                 return new Tuple2<String, Person>(person.getCountry(), person);
@@ -103,7 +100,6 @@ public class MapTrans {
         });
 
         JavaPairRDD<String, Iterable<Person>> groupedData = pairRdd.groupByKey();
-
         groupedData.foreach(new VoidFunction<Tuple2<String, Iterable<Person>>>() {
             @Override
             public void call(Tuple2<String, Iterable<Person>> data) throws Exception {

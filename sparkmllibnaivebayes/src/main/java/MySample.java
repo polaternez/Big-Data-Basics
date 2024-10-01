@@ -14,19 +14,22 @@ import java.util.Locale;
 
 public class MySample {
     public static void main(String[] args) {
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("diabetes-mllib").getOrCreate();
-        Dataset<Row> basketDS = sparkSession.read().format("csv")
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("diabetes-mllib")
+                .getOrCreate();
+
+        Dataset<Row> basketDS = spark.read().format("csv")
                 .option("header", true)
                 .option("inferSchema", true)
-                .load("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\MLlib\\basketbol.csv");
-
+                .load("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\MLlib\\basketbol.csv");
         basketDS.show();
 
-        // --Data Preprocessing--
+        // --Data preprocessing--
         String[] headerList = {"hava", "sicaklik", "nem", "ruzgar", "basketbol"};
         List<String> headers = Arrays.asList(headerList);
-        List<String> headersResult = new ArrayList<String>();
 
+        List<String> headersResult = new ArrayList<String>();
         for (String h : headers){
             if (h.equals("basketbol")){
                 StringIndexer tmpIndexer = new StringIndexer().setInputCol(h).setOutputCol("label");
@@ -40,14 +43,11 @@ public class MySample {
         }
 
         String[] colList = headersResult.toArray(new String[headersResult.size()]);
-
         VectorAssembler vectorAssembler = new VectorAssembler()
                 .setInputCols(colList)
                 .setOutputCol("features");
-        
         Dataset<Row> transformedDS = vectorAssembler.transform(basketDS);
         Dataset<Row> finalDS = transformedDS.select("features", "label");
-
         finalDS.show();
 
         //train-test split
@@ -55,16 +55,15 @@ public class MySample {
         Dataset<Row> trainData = splits[0];
         Dataset<Row> testData = splits[1];
 
-        // --Create Model--
+        // --Create model--
         NaiveBayes nb = new NaiveBayes();
         nb.setSmoothing(1);
 
-        // --Train Model--
+        // --Train model--
         NaiveBayesModel model = nb.fit(trainData);
 
         // --Predictions--
         Dataset<Row> predictions = model.transform(testData);
-        
         predictions.show();
 
         // --Evaluate Model--
@@ -72,9 +71,7 @@ public class MySample {
                 .setLabelCol("label")
                 .setPredictionCol("prediction")
                 .setMetricName("accuracy");
-
         double evaluate = evaluator.evaluate(predictions);
-
         System.out.println("accuracy : " + evaluate);
     }
 }

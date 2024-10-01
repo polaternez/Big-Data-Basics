@@ -13,12 +13,11 @@ public class ProducerApp {
     public static void main(String[] args) {
         Scanner read = new Scanner(System.in);
 
-        Properties config = new Properties();
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, new StringSerializer().getClass().getName());
-        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, new StringSerializer().getClass().getName());
-
-        Producer producer = new KafkaProducer<String, String>(config);
+        Properties props = new Properties();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, new StringSerializer().getClass().getName());
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, new StringSerializer().getClass().getName());
+        Producer producer = new KafkaProducer<String, String>(props);
 
        /* ProducerRecord<String,String> rec = new ProducerRecord<String,String>("search", "shoes");
         producer.send(rec);

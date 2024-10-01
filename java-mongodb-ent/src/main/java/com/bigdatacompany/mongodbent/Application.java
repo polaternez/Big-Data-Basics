@@ -30,37 +30,29 @@ public class Application {
                 .append("job", "entrepreneur");
 
 //       --CREATE--
-
 //         personnelCollection.insertOne(Document.parse(data.toJson()));
 
         /*Document parse = Document.parse(data.toJson());
         Document parse2 = Document.parse(data2.toJson());
-
         personnelCollection.insertMany(Arrays.asList(parse, parse2));*/
 
 //      --READ--
-
-/*
 //        FindIterable<Document> results = personnelCollection.find();
-        FindIterable<Document> results = personnelCollection.find(new BasicDBObject("date", 1971));
-
+        /*FindIterable<Document> results = personnelCollection.find(new BasicDBObject("date", 1971));
         for (Document doc : results){
             System.out.println(doc.toJson());
         }*/
 
 //      --UPDATE--
-
-       /* Bson filter = Filters.exists("job");
+        /*Bson filter = Filters.exists("job");
         Bson update = Updates.set("child", "Nevada Musk");
-
         personnelCollection.updateOne(filter, update);*/
 
 //      --DELETE--
-
-  /*      Bson deleteFilter = Filters.eq("name", "Elon Musk");
+        /*Bson deleteFilter = Filters.eq("name", "Elon Musk");
         personnelCollection.deleteOne(deleteFilter);*/
 
-       /* Bson deleteFilter = Filters.eq("country", "USA");
+        /*Bson deleteFilter = Filters.eq("country", "USA");
         personnelCollection.deleteMany(deleteFilter);*/
 
 //        personnelCollection.drop();

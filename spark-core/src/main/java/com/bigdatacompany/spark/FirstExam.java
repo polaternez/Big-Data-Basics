@@ -13,16 +13,14 @@ public class FirstExam {
         JavaSparkContext javaSparkContext = new JavaSparkContext("local", "First Exam Spark");
 
         // Load data
-        JavaRDD<String> firstData = javaSparkContext.textFile("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\first-data.txt");
-
+        JavaRDD<String> firstData = javaSparkContext.textFile("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\first-data.txt");
         System.out.println(firstData.count());
         System.out.println(firstData.first());
 
         // List to RDD
         List<String> data = Arrays.asList("big data", "elasticsearch", "first", "spark", "hadoop");
         JavaRDD<String> secondData = javaSparkContext.parallelize(data);
-
-        System.out.println("# Total data: " + secondData.count());
+        System.out.println("Number of data: " + secondData.count());
         System.out.println("First data: " + secondData.first());
 
     }

@@ -11,6 +11,11 @@ public class SparkProductExam {
     public static void main(String[] args) {
         System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("First Exam")
+                .getOrCreate();
+
         StructType schema = new StructType()
                 .add("first_name", DataTypes.StringType)
                 .add("last_name", DataTypes.StringType)
@@ -18,29 +23,31 @@ public class SparkProductExam {
                 .add("country", DataTypes.StringType)
                 .add("price", DataTypes.DoubleType)
                 .add("product", DataTypes.StringType);
-
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("First Exam").getOrCreate();
-        Dataset<Row> rawDS = sparkSession.read()
+        Dataset<Row> rawDS = spark.read()
                 .option("multiline", true)
                 .schema(schema)
-                .json("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\product.json");
+                .json("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\product.json");
 
-/*
-//        Dataset<Row> countPriceDS = rawDS.groupBy("country", "product").sum("price");
-        Dataset<Row> countPriceDS = rawDS.groupBy("country", "product").count();
-        countPriceDS.sort(functions.desc("count")).show();*/
+        /*Dataset<Row> countDS = rawDS.groupBy("country", "product").count()
+                .sort(functions.desc("count"));
+        countDS.show();*/
 
-  /*      Dataset<Row> countPriceDS = rawDS.groupBy("country").avg("price").sort(functions.desc("avg(price)"));
+        /*Dataset<Row> sumPriceDS = rawDS.groupBy("country").sum("price")
+                .sort(functions.desc("sum(price)"));
+        sumPriceDS.show();*/
 
-        countPriceDS.show();*/
+        /*Dataset<Row> avgPriceDS = rawDS.groupBy("product").avg("price")
+                .sort(functions.desc("avg(price)"));
+        avgPriceDS.show(false);*/
 
         //--SQL API--
 
         rawDS.createOrReplaceTempView("product");
 //        rawDS.createOrReplaceGlobalTempView("product");
 
-        Dataset<Row> sqlDS = sparkSession.sql("select first_name, email, country from product where country='France' or country='China'");
-
+        Dataset<Row> sqlDS = spark.sql(
+                "select first_name, email, country from product where country='France' or country='China'"
+        );
         sqlDS.show();
 
 

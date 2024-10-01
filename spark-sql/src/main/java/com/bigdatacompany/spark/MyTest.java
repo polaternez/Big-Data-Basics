@@ -15,28 +15,30 @@ public class MyTest {
     public static void main(String[] args) {
         System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("My Test").getOrCreate();
-        Dataset<Row> rawDS = sparkSession.read()
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("My Test")
+                .getOrCreate();
+        Dataset<Row> rawDS = spark.read()
                 .option("header", true)
                 .option("inferSchema", true)
-                .csv("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\user_test.csv");
-
+                .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\user_test.csv");
         rawDS.show(false);
         rawDS.printSchema();
 
         // -- Shape of dataset --
-//        System.out.println(String.format("(%d, %d)", rawDS.count(), rawDS.columns().length));
+//        System.out.println(String.format("Shape: (%d, %d)", rawDS.count(), rawDS.columns().length));
 
         // -- Summary statistics --
 //        rawDS.summary().show();
 
-        // -- Find null values --
-       /* ArrayList<String> nullValueCounts = new ArrayList<>();
-
+        // -- Check null values --
+        /*ArrayList<String> nullValueCounts = new ArrayList<>();
         for(var col : rawDS.columns()){
-            nullValueCounts.add(col + " : " + rawDS.select(col).filter(rawDS.col(col).isNull()).count());
+            nullValueCounts.add(
+                    String.format("%-12s : %d", col, rawDS.select(col).filter(rawDS.col(col).isNull()).count())
+            );
         }
-
         System.out.println("Null values:");
         for (var count : nullValueCounts) {
             System.out.println(count);
@@ -49,43 +51,43 @@ public class MyTest {
         /*Dataset<Row> newDS = userDS.drop("full_name", "email");
         newDS.show();*/
 
-
-        // --Add column--
+        // --Add new column--
        /* userDS.withColumn("age_group",
                 when(col("age").lt(20), "<20")
                         .when(col("age").lt(40), "20-39")
                         .when(col("age").lt(60), "40-59")
                         .otherwise(">59")).show();*/
 
-
         // --agg method--
         /*Dataset<Row> aggDS = userDS.groupBy("country").agg(
                 count("id").as("count"),
                 avg("age").as("avg_age"),
-                sum("salary").as("sum_salary"));
-
+                sum("salary").as("sum_salary")
+        );
         aggDS.sort(functions.desc("sum_salary")).show();*/
 
         // -- Pivot table--
-/*//        userDS.groupBy("country").pivot("gender").count().na().fill(0).show();
-        userDS.groupBy("country").pivot("gender").avg("age").na().fill(0).show();*/
+//        userDS.groupBy("country").pivot("gender").count().show();
+        /*userDS.groupBy("country")
+                .pivot("gender").avg("age")
+                .na().fill(0)
+                .show();*/
 
 
         // --Join two datasets--
-    /*    Dataset<Row> bookDS = sparkSession.read()
+        /*Dataset<Row> bookDS = spark.read()
                 .option("header", true)
                 .option("inferSchema", true)
-                .csv("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\books.csv");
-
+                .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\books.csv");
         bookDS.show(5);
 
-        Dataset<Row> ratingsDS = sparkSession.read()
+        Dataset<Row> ratingsDS = spark.read()
                 .option("header", true)
                 .option("inferSchema", true)
-                .csv("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\ratings.csv");
-
+                .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\ratings.csv");
         ratingsDS.show(5);
 
-        bookDS.join(ratingsDS, "book_id").show(5);*/
+        bookDS.join(ratingsDS, "book_id")
+                .show(5);*/
     }
 }

@@ -18,20 +18,24 @@ import java.util.Locale;
 public class DiabetesApp {
     public static void main(String[] args) {
 
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("diabetes-mllib").getOrCreate();
-        Dataset<Row> dataset = sparkSession.read()
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("diabetes-mllib")
+                .getOrCreate();
+
+        Dataset<Row> dataset = spark.read()
                 .option("header", true)
                 .option("inferSchema", true)
-                .csv("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\MLlib\\diabetes.csv");
-
+                .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\MLlib\\diabetes.csv");
 //        dataset.show();
 
-        // --Data Preprocessing--
+        // --Data preprocessing--
+        String[] headers = {"Pregnancies", "Glucose", "BloodPressure", "SkinThickness",
+                "Insulin", "BMI", "DiabetesPedigreeFunction", "Age"};
 
-        String[] headers = {"Pregnancies", "Glucose", "BloodPressure", "SkinThickness", "Insulin", "BMI",
-                "DiabetesPedigreeFunction", "Age"};
-
-        VectorAssembler vectorAssembler = new VectorAssembler().setInputCols(headers).setOutputCol("features");
+        VectorAssembler vectorAssembler = new VectorAssembler()
+                .setInputCols(headers)
+                .setOutputCol("features");
         Dataset<Row> transformDS = vectorAssembler.transform(dataset);
 
         // Scaling
@@ -40,8 +44,8 @@ public class DiabetesApp {
                 .setOutputCol("scaledFeatures")
                 .setWithStd(true)
                 .setWithMean(false);
-
-        Dataset<Row> scaledDS = scaler.fit(transformDS).transform(transformDS);
+        Dataset<Row> scaledDS = scaler.fit(transformDS)
+                .transform(transformDS);
 
         Dataset<Row> finalDS = scaledDS.select("scaledFeatures", "Outcome")
                 .withColumnRenamed("scaledFeatures", "features");
@@ -51,25 +55,23 @@ public class DiabetesApp {
         Dataset<Row> trainData = splits[0];
         Dataset<Row> testData = splits[1];
 
-        // --Create Model--
+        // --Create model--
         RandomForestClassifier rfc = new RandomForestClassifier()
                 .setLabelCol("Outcome")
                 .setFeaturesCol("features");
 
-        // --Train Model--
+        // --Train model--
         RandomForestClassificationModel model = rfc.fit(trainData);
 
         // --Predictions--
         Dataset<Row> predictions = model.transform(testData);
-
         predictions.show();
 
-        // --Evaluate Model--
+        // --Evaluate model--
         MulticlassClassificationEvaluator evaluator = new MulticlassClassificationEvaluator()
                 .setLabelCol("Outcome")
                 .setPredictionCol("prediction")
                 .setMetricName("accuracy");
-
         double evaluate = evaluator.evaluate(predictions);
         System.out.println("accuracy : " + evaluate);
     }

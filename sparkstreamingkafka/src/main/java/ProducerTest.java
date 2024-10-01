@@ -16,16 +16,14 @@ public class ProducerTest {
         Scanner read = new Scanner(System.in);
         Gson gson = new Gson();
 
-        Properties configs = new Properties();
-        configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer");
-        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-
-        Producer producer = new KafkaProducer<String, String>(configs);
-
+        Properties props = new Properties();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer");
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        Producer producer = new KafkaProducer<String, String>(props);
 
         while (true){
-            System.out.println("Search :");
+            System.out.println("Search:");
             String product = read.nextLine();
 
             SearchProductModel sp = new SearchProductModel();
@@ -39,7 +37,7 @@ public class ProducerTest {
             ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topic, json);
             producer.send(rec);
 
-            System.out.println("Sent Kafka!!");
+            System.out.println("Sent to Kafka!!");
 
         }
     }

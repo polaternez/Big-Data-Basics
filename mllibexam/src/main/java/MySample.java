@@ -10,7 +10,10 @@ public class MySample {
     public static void main(String[] args) {
         System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("spark-mllib").getOrCreate();
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("spark-mllib")
+                .getOrCreate();
 
         StructType schema = new StructType()
                 .add("ulke", DataTypes.StringType)
@@ -18,16 +21,14 @@ public class MySample {
                 .add("kilo", DataTypes.DoubleType)
                 .add("yas", DataTypes.DoubleType)
                 .add("cinsiyet", DataTypes.StringType);
-
-        Dataset<Row> dataset = sparkSession.read()
+        Dataset<Row> dataset = spark.read()
                 .option("header", true)
                 .schema(schema)
-                .csv("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\MLlib\\eksikveriler.csv");
+                .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\MLlib\\eksikveriler.csv");
+        /*dataset.show();
+        dataset.printSchema();*/
 
-//        dataset.show();
-//        dataset.printSchema();
-
-       /* Dataset<Row> newDS = dataset.withColumn("yas_int", dataset.col("yas").cast("int"));
+        /*Dataset<Row> newDS = dataset.withColumn("yas_int", dataset.col("yas").cast("int"));
         newDS.printSchema();*/
 
         // --Handle missing values--
@@ -35,21 +36,20 @@ public class MySample {
                 .setInputCols(new String[]{"yas"})
                 .setOutputCols(new String[]{"yas_imputed"})
                 .setStrategy("mean");
-
         dataset = imputer.fit(dataset).transform(dataset);
 
         // --Encode categorical variables--
         String[] catCols = {"ulke", "cinsiyet"};
-
         for (String col : catCols){
-            StringIndexer indexer = new StringIndexer().setInputCol(col).setOutputCol(col + "_index");
+            StringIndexer indexer = new StringIndexer()
+                    .setInputCol(col)
+                    .setOutputCol(col + "_index");
             dataset = indexer.fit(dataset).transform(dataset);
         }
 
         OneHotEncoderEstimator oneHotEncoder = new OneHotEncoderEstimator()
                 .setInputCols(new String[]{"ulke_index"})
                 .setOutputCols(new String[]{"ulke_ohe"});
-
         dataset = oneHotEncoder.fit(dataset).transform(dataset);
         dataset.show();
     }

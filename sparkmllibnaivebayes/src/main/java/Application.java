@@ -10,17 +10,19 @@ import org.apache.spark.sql.SparkSession;
 public class Application {
     public static void main(String[] args) {
 
-        SparkSession sparkSession = SparkSession.builder().master("local").appName("spark-mllib-naive-bayes").getOrCreate();
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("spark-mllib-naive-bayes")
+                .getOrCreate();
 
-        Dataset<Row> dataset = sparkSession.read().format("csv")
+        Dataset<Row> dataset = spark.read().format("csv")
                 .option("header", true)
                 .option("inferSchema", true)
-                .load("C:\\Users\\Polat\\Desktop\\BigData\\Datasets\\MLlib\\basketbol.csv");
-
+                .load("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\MLlib\\basketbol.csv");
 //        dataset.show();
 
-        // --Data Preprocessing--
-        // Label Encoding
+        // --Data preprocessing--
+        // Encode features
         StringIndexer weatherIndexer = new StringIndexer().setInputCol("hava").setOutputCol("weather_index");
         StringIndexer heatIndexer = new StringIndexer().setInputCol("sicaklik").setOutputCol("heat_index");
         StringIndexer humidityIndexer = new StringIndexer().setInputCol("nem").setOutputCol("humidity_index");
@@ -38,7 +40,6 @@ public class Application {
         VectorAssembler vectorAssembler = new VectorAssembler()
                 .setInputCols(new String[]{"weather_index", "heat_index", "humidity_index", "wind_index"})
                 .setOutputCol("features");
-
         Dataset<Row> transformedDS = vectorAssembler.transform(indexedResult);
         Dataset<Row> finalDS = transformedDS.select("features", "label");
 
@@ -47,12 +48,11 @@ public class Application {
         Dataset<Row> trainData = splits[0];
         Dataset<Row> testData = splits[1];
 
-
-        // --Create Model--
+        // --Create model--
         NaiveBayes nb = new NaiveBayes();
         nb.setSmoothing(1);
 
-        // --Train Model--
+        // --Train model--
         NaiveBayesModel model = nb.fit(trainData);
 
         // --Predictions--
@@ -64,9 +64,7 @@ public class Application {
                 .setLabelCol("label")
                 .setPredictionCol("prediction")
                 .setMetricName("accuracy");
-
         double evaluate = evaluator.evaluate(predictions);
-
         System.out.println("accuracy : " + evaluate);
     }
 }
