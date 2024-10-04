@@ -19,12 +19,12 @@ public class MapTrans {
     public static void main(String[] args) {
         System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
-        JavaSparkContext javaSparkContext = new JavaSparkContext("local", "Map Transformation Spark");
-        JavaRDD<String> rawData = javaSparkContext.textFile("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\person.csv");
+        JavaSparkContext sc = new JavaSparkContext("local", "Map Transformation Spark");
+        JavaRDD<String> rawData = sc.textFile("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\person.csv");
+        System.out.println("count: " + rawData.count());
 
       // -Distinct-
-        /*System.out.println("count: " + rawData.count());
-        JavaRDD<String> distData = rawData.distinct();
+        /*JavaRDD<String> distData = rawData.distinct();
         System.out.println("distinct count: " + distData.count());*/
 
         // --FlatMap--

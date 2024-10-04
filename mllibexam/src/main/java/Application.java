@@ -24,11 +24,11 @@ public class Application {
         VectorAssembler vectorAssembler = new VectorAssembler()
                 .setInputCols(new String[]{"Ay"})
                 .setOutputCol("features");
-        Dataset<Row> transformedDS = vectorAssembler.transform(dataset);
-        Dataset<Row> finalDS = transformedDS.select("features", "Satis");
+        Dataset<Row> transformedDF = vectorAssembler.transform(dataset);
+        Dataset<Row> finalDF = transformedDF.select("features", "Satis");
 
         // train-test split
-        Dataset<Row>[] splits = finalDS.randomSplit(new double[]{0.7, 0.3},42);
+        Dataset<Row>[] splits = finalDF.randomSplit(new double[]{0.7, 0.3},42);
         Dataset<Row> trainData = splits[0];
         Dataset<Row> testData = splits[1];
 

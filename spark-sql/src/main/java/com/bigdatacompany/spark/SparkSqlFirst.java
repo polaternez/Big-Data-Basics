@@ -25,64 +25,62 @@ public class SparkSqlFirst {
                 .add("gender", DataTypes.StringType)
                 .add("country", DataTypes.StringType)
                 .add("age", DataTypes.IntegerType);
-        Dataset<Row> rawDS = spark.read()
+        Dataset<Row> personDF = spark.read()
                 .option("header", true)
                 .schema(schema)
                 .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\person.csv");
-        rawDS.show();
-        rawDS.printSchema();
+        personDF.show();
+        personDF.printSchema();
 
         // --select--
-        /*Dataset<Row> selectDS = rawDS.select("first_name", "last_name");
-        selectDS.show((int)selectDS.count()); // display all rows */
+        /*Dataset<Row> selectDF = personDF.select("first_name", "last_name");
+        selectDF.show((int)selectDF.count()); // display all rows */
 
         // --filter--
-        Dataset<Row> selDS = rawDS.select("first_name", "last_name", "email", "country", "age");
+        Dataset<Row> selectDF = personDF.select("first_name", "last_name", "email", "country", "age");
 
-/*//        Dataset<Row> chinaDS = selDS.filter("country = 'China'");
-        Dataset<Row> chinaDS = selDS.filter(
-                selDS.col("country").equalTo("China")
+/*//        Dataset<Row> chinaDF = selectDF.filter("country = 'China'");
+        Dataset<Row> chinaDF = selectDF.filter(
+                selectDF.col("country").equalTo("China")
         );
-        chinaDS.show();*/
+        chinaDF.show();*/
 
-/*//        Dataset<Row> oldChineseDS = selDS.filter("country ='China' AND age > 50 AND email like '%google%'");
-        Dataset<Row> oldChineseDS = selDS.filter(
-                selDS.col("country").equalTo("China")
-                        .and(selDS.col("age").gt(50))
-                        .and(selDS.col("email").contains("google"))
+/*//        Dataset<Row> oldChineseDF = selectDF.filter("country='China' AND age>50 AND email like '%google%'");
+        Dataset<Row> oldChineseDF = selectDF.filter(
+                selectDF.col("country").equalTo("China")
+                        .and(selectDF.col("age").gt(50))
+                        .and(selectDF.col("email").contains("google"))
         );
-        oldChineseDS.show();*/
+        oldChineseDF.show();*/
 
-/*//        Dataset<Row> countryDS = selDS.filter("country='France' or country='Brazil'");
-        Dataset<Row> countryDS = selDS.filter(
-                selDS.col("country").equalTo("France")
-                        .or(selDS.col("country").equalTo("Brazil"))
+/*//        Dataset<Row> countryDF = selectDF.filter("country='France' or country='Brazil'");
+        Dataset<Row> countryDF = selectDF.filter(
+                selectDF.col("country").equalTo("France")
+                        .or(selectDF.col("country").equalTo("Brazil"))
         );
-        countryDS.show();*/
+        countryDF.show();*/
 
         // --sort--
-        /*Dataset<Row> ageGt50DS = selDS.filter("age >= 50")
-                .sort("age");*/
-        Dataset<Row> ageGt50DS = selDS.filter("age >= 50")
-                .sort(functions.desc("age"));
-        ageGt50DS.show();
+        Dataset<Row> ageGt50DF = selectDF.filter("age >= 50")
+                .sort("age");
+        ageGt50DF.show();
 
         // --Add new column--
-        /*Dataset<Row> wcDS = rawDS
+        /*Dataset<Row> wcDF = personDF
                 .withColumn("first_name_test", lower(col("first_name")))
                 .withColumn("age_test", expr("age * age"));*/
-        /*Dataset<Row> wcDS = rawDS.withColumn("gender_new",
+        /*Dataset<Row> wcDF = personDF.withColumn("gender_new",
                 when(functions.col("gender").equalTo("Female"), 0)
                         .when(functions.col("gender").equalTo("Male"), 1)
                         .otherwise(2)
         );
-        wcDS.show();*/
+        wcDF.show();*/
 
 
         // --groupBy--
-        Dataset<Row> countryGroupDS = selDS.groupBy("country").count()
+        Dataset<Row> countDF = selectDF.groupBy("country").count()
                 .sort(functions.desc("count"));
-        countryGroupDS.show();
+        countDF.show();
 
     }
 }

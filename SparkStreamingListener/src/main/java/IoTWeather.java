@@ -6,9 +6,11 @@ import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructType;
 
+import java.util.concurrent.TimeoutException;
+
 
 public class IoTWeather {
-    public static void main(String[] args) throws StreamingQueryException {
+    public static void main(String[] args) throws StreamingQueryException, TimeoutException {
         System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
         SparkSession spark = SparkSession.builder()

@@ -19,24 +19,24 @@ public class MyTest {
                 .master("local")
                 .appName("My Test")
                 .getOrCreate();
-        Dataset<Row> rawDS = spark.read()
+        Dataset<Row> df = spark.read()
                 .option("header", true)
                 .option("inferSchema", true)
                 .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\user_test.csv");
-        rawDS.show(false);
-        rawDS.printSchema();
+        df.show(false);
+        df.printSchema();
 
         // -- Shape of dataset --
-//        System.out.println(String.format("Shape: (%d, %d)", rawDS.count(), rawDS.columns().length));
+//        System.out.println(String.format("Shape: (%d, %d)", df.count(), df.columns().length));
 
         // -- Summary statistics --
-//        rawDS.summary().show();
+//        df.summary().show();
 
         // -- Check null values --
         /*ArrayList<String> nullValueCounts = new ArrayList<>();
-        for(var col : rawDS.columns()){
+        for(var col : df.columns()){
             nullValueCounts.add(
-                    String.format("%-12s : %d", col, rawDS.select(col).filter(rawDS.col(col).isNull()).count())
+                    String.format("%-12s : %d", col, df.select(col).filter(df.col(col).isNull()).count())
             );
         }
         System.out.println("Null values:");
@@ -45,49 +45,49 @@ public class MyTest {
         }*/
 
         // --Drop null rows--
-        Dataset<Row> userDS = rawDS.na().drop();
+        Dataset<Row> cleanedDF = df.na().drop();
 
         // --Drop columns--
-        /*Dataset<Row> newDS = userDS.drop("full_name", "email");
-        newDS.show();*/
+        /*Dataset<Row> newDF = cleanedDF.drop("full_name", "email");
+        newDF.show();*/
 
         // --Add new column--
-       /* userDS.withColumn("age_group",
+       /* cleanedDF.withColumn("age_group",
                 when(col("age").lt(20), "<20")
                         .when(col("age").lt(40), "20-39")
                         .when(col("age").lt(60), "40-59")
                         .otherwise(">59")).show();*/
 
         // --agg method--
-        /*Dataset<Row> aggDS = userDS.groupBy("country").agg(
+        /*Dataset<Row> aggDF = cleanedDF.groupBy("country").agg(
                 count("id").as("count"),
                 avg("age").as("avg_age"),
                 sum("salary").as("sum_salary")
         );
-        aggDS.sort(functions.desc("sum_salary")).show();*/
+        aggDF.sort(functions.desc("sum_salary")).show();*/
 
         // -- Pivot table--
-//        userDS.groupBy("country").pivot("gender").count().show();
-        /*userDS.groupBy("country")
+//        cleanedDF.groupBy("country").pivot("gender").count().show();
+        /*cleanedDF.groupBy("country")
                 .pivot("gender").avg("age")
                 .na().fill(0)
                 .show();*/
 
 
         // --Join two datasets--
-        /*Dataset<Row> bookDS = spark.read()
+        /*Dataset<Row> bookDF = spark.read()
                 .option("header", true)
                 .option("inferSchema", true)
                 .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\books.csv");
-        bookDS.show(5);
+        bookDF.show(5);
 
-        Dataset<Row> ratingsDS = spark.read()
+        Dataset<Row> ratingsDF = spark.read()
                 .option("header", true)
                 .option("inferSchema", true)
                 .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\ratings.csv");
-        ratingsDS.show(5);
+        ratingsDF.show(5);
 
-        bookDS.join(ratingsDS, "book_id")
+        bookDF.join(ratingsDF, "book_id")
                 .show(5);*/
     }
 }

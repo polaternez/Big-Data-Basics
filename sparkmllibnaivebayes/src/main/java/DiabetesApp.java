@@ -36,7 +36,7 @@ public class DiabetesApp {
         VectorAssembler vectorAssembler = new VectorAssembler()
                 .setInputCols(headers)
                 .setOutputCol("features");
-        Dataset<Row> transformDS = vectorAssembler.transform(dataset);
+        Dataset<Row> transformDF = vectorAssembler.transform(dataset);
 
         // Scaling
         StandardScaler scaler = new StandardScaler()
@@ -44,14 +44,14 @@ public class DiabetesApp {
                 .setOutputCol("scaledFeatures")
                 .setWithStd(true)
                 .setWithMean(false);
-        Dataset<Row> scaledDS = scaler.fit(transformDS)
-                .transform(transformDS);
+        Dataset<Row> scaledDF = scaler.fit(transformDF)
+                .transform(transformDF);
 
-        Dataset<Row> finalDS = scaledDS.select("scaledFeatures", "Outcome")
+        Dataset<Row> finalDF = scaledDF.select("scaledFeatures", "Outcome")
                 .withColumnRenamed("scaledFeatures", "features");
 
         // train-test split
-        Dataset<Row>[] splits = finalDS.randomSplit(new double[]{0.7, 0.3},42);
+        Dataset<Row>[] splits = finalDF.randomSplit(new double[]{0.7, 0.3},42);
         Dataset<Row> trainData = splits[0];
         Dataset<Row> testData = splits[1];
 

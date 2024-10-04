@@ -8,8 +8,8 @@ public class ActionApp {
     public static void main(String[] args) {
         System.setProperty("hadoop.home.dir", "C:\\bigdata\\hadoop");
 
-        JavaSparkContext javaSparkContext = new JavaSparkContext("local", "Map Transformation Spark");
-        JavaRDD<String> rawData = javaSparkContext.textFile("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\person.csv");
+        JavaSparkContext sc = new JavaSparkContext("local", "Map Transformation Spark");
+        JavaRDD<String> rawData = sc.textFile("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\person.csv");
         System.out.println(rawData.count());
         System.out.println(rawData.first());
         System.out.println(rawData.take(3));

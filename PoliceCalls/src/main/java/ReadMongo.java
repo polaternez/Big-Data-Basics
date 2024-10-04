@@ -15,11 +15,11 @@ public class ReadMongo {
                 .appName("MongoSparkConnectorIntro")
                 .getOrCreate();
 
-        Dataset<Row> rawDS = spark.read().format("mongo")
+        Dataset<Row> mongoDF = spark.read().format("mongo")
                 .option("uri", "mongodb://127.0.0.1/police.callcenter")
                 .load();
-        rawDS.show();
-        rawDS.printSchema();
+        mongoDF.show();
+        mongoDF.printSchema();
     }
 }
 

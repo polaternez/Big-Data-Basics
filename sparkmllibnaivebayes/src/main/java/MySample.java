@@ -19,11 +19,11 @@ public class MySample {
                 .appName("diabetes-mllib")
                 .getOrCreate();
 
-        Dataset<Row> basketDS = spark.read().format("csv")
+        Dataset<Row> basketDF = spark.read().format("csv")
                 .option("header", true)
                 .option("inferSchema", true)
                 .load("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\MLlib\\basketbol.csv");
-        basketDS.show();
+        basketDF.show();
 
         // --Data preprocessing--
         String[] headerList = {"hava", "sicaklik", "nem", "ruzgar", "basketbol"};
@@ -33,25 +33,25 @@ public class MySample {
         for (String h : headers){
             if (h.equals("basketbol")){
                 StringIndexer tmpIndexer = new StringIndexer().setInputCol(h).setOutputCol("label");
-                basketDS = tmpIndexer.fit(basketDS).transform(basketDS);
+                basketDF = tmpIndexer.fit(basketDF).transform(basketDF);
                 headersResult.add("label");
             } else {
                 StringIndexer tmpIndexer = new StringIndexer().setInputCol(h).setOutputCol(h.toLowerCase() + "_index");
-                basketDS = tmpIndexer.fit(basketDS).transform(basketDS);
+                basketDF = tmpIndexer.fit(basketDF).transform(basketDF);
                 headersResult.add(h.toLowerCase() + "_index");
             }
         }
-
         String[] colList = headersResult.toArray(new String[headersResult.size()]);
+
         VectorAssembler vectorAssembler = new VectorAssembler()
                 .setInputCols(colList)
                 .setOutputCol("features");
-        Dataset<Row> transformedDS = vectorAssembler.transform(basketDS);
-        Dataset<Row> finalDS = transformedDS.select("features", "label");
-        finalDS.show();
+        Dataset<Row> transformedDF = vectorAssembler.transform(basketDF);
+        Dataset<Row> finalDF = transformedDF.select("features", "label");
+        finalDF.show();
 
         //train-test split
-        Dataset<Row>[] splits = finalDS.randomSplit(new double[]{0.7, 0.3},42);
+        Dataset<Row>[] splits = finalDF.randomSplit(new double[]{0.7, 0.3},42);
         Dataset<Row> trainData = splits[0];
         Dataset<Row> testData = splits[1];
 
@@ -72,6 +72,6 @@ public class MySample {
                 .setPredictionCol("prediction")
                 .setMetricName("accuracy");
         double evaluate = evaluator.evaluate(predictions);
-        System.out.println("accuracy : " + evaluate);
+        System.out.println("accuracy: " + evaluate);
     }
 }

@@ -23,32 +23,31 @@ public class SparkProductExam {
                 .add("country", DataTypes.StringType)
                 .add("price", DataTypes.DoubleType)
                 .add("product", DataTypes.StringType);
-        Dataset<Row> rawDS = spark.read()
+        Dataset<Row> productDF = spark.read()
                 .option("multiline", true)
                 .schema(schema)
                 .json("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\product.json");
 
-        /*Dataset<Row> countDS = rawDS.groupBy("country", "product").count()
+        /*Dataset<Row> countDF = productDF.groupBy("country", "product").count()
                 .sort(functions.desc("count"));
-        countDS.show();*/
+        countDF.show();*/
 
-        /*Dataset<Row> sumPriceDS = rawDS.groupBy("country").sum("price")
+        /*Dataset<Row> sumPriceDF = productDF.groupBy("country").sum("price")
                 .sort(functions.desc("sum(price)"));
-        sumPriceDS.show();*/
+        sumPriceDF.show();*/
 
-        /*Dataset<Row> avgPriceDS = rawDS.groupBy("product").avg("price")
+        /*Dataset<Row> avgPriceDF = productDF.groupBy("product").avg("price")
                 .sort(functions.desc("avg(price)"));
-        avgPriceDS.show(false);*/
+        avgPriceDF.show(false);*/
 
         //--SQL API--
+        productDF.createOrReplaceTempView("product");
+//        productDF.createOrReplaceGlobalTempView("product");
 
-        rawDS.createOrReplaceTempView("product");
-//        rawDS.createOrReplaceGlobalTempView("product");
-
-        Dataset<Row> sqlDS = spark.sql(
+        Dataset<Row> sqlDF = spark.sql(
                 "select first_name, email, country from product where country='France' or country='China'"
         );
-        sqlDS.show();
+        sqlDF.show();
 
 
 

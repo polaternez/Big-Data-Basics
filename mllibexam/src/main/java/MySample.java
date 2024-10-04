@@ -28,8 +28,8 @@ public class MySample {
         /*dataset.show();
         dataset.printSchema();*/
 
-        /*Dataset<Row> newDS = dataset.withColumn("yas_int", dataset.col("yas").cast("int"));
-        newDS.printSchema();*/
+        /*Dataset<Row> newDF = dataset.withColumn("yas_int", dataset.col("yas").cast("int"));
+        newDF.printSchema();*/
 
         // --Handle missing values--
         Imputer imputer = new Imputer()
@@ -47,7 +47,7 @@ public class MySample {
             dataset = indexer.fit(dataset).transform(dataset);
         }
 
-        OneHotEncoderEstimator oneHotEncoder = new OneHotEncoderEstimator()
+        OneHotEncoder oneHotEncoder = new OneHotEncoder()
                 .setInputCols(new String[]{"ulke_index"})
                 .setOutputCols(new String[]{"ulke_ohe"});
         dataset = oneHotEncoder.fit(dataset).transform(dataset);

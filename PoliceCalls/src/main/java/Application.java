@@ -26,24 +26,26 @@ public class Application {
                 .add("callNumber", DataTypes.StringType)
                 .add("incidentLocation", DataTypes.StringType)
                 .add("location", DataTypes.StringType);
-        Dataset<Row> rawData = spark.read()
+        Dataset<Row> policeDF = spark.read()
                 .option("header", true)
                 .schema(schema)
                 .csv("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\police911.csv");
 
-        Dataset<Row> data = rawData.filter(
-                rawData.col("recordId").isNotNull()
+        Dataset<Row> data = policeDF.filter(
+                policeDF.col("recordId").isNotNull()
         );
 
 //        data.groupBy("incidentLocation").count().sort(functions.desc("count")).show();
-        Dataset<Row> descriptionDS = data.filter(
+        Dataset<Row> descriptionDF = data.filter(
                 data.col("description").notEqual("911/NO  VOICE")
         );
-        Dataset<Row> resultDS = descriptionDS.groupBy("incidentLocation", "description").count()
+        Dataset<Row> resultDF = descriptionDF.groupBy("incidentLocation", "description").count()
                 .sort(functions.desc("count"));
 
         // Write dataset to MongoDB
-        MongoSpark.write(resultDS).mode("overwrite").save();
+        MongoSpark.write(resultDF)
+                .mode("overwrite")
+                .save();
 
     }
 }
