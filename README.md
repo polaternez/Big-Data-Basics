@@ -1,5 +1,5 @@
-# Big-Data-Basics
-Learn Big Data tools and integrate them into projects with Java
+# A Beginner's Guide to Big Data Projects
+Introduce new users to the concepts and tools of big data by implementing a simple, yet effective project.
 
 ## Resources
 For compatibility, the following technologies must be the same version:
