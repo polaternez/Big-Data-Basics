@@ -24,7 +24,7 @@ public class ProducerApp {
         producer.close();*/
 
         while(true){
-            System.out.println("Kafka'ya gönderilecek data: ");
+            System.out.println("Kafka'ya gönderilecek data:");
             String key = read.nextLine();
             ProducerRecord<String, String> rec = new ProducerRecord<String,String>("search", key);
             producer.send(rec);
