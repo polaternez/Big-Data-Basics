@@ -24,13 +24,12 @@ public class WriterApp {
         StructType schema = new StructType()
                 .add("location", locSchema)
                 .add("stitle", DataTypes.StringType);
-
-        Dataset<Row> siteDS = spark.read()
+        Dataset<Row> siteDF = spark.read()
                 .option("multiline", true)
                 .schema(schema)
                 .json("C:\\Users\\Pantheon\\Desktop\\BigData\\Datasets\\Applications\\GeogspatialQuery\\istanbul_siteler.json");
 
         // JavaEsSpark from elasticsearch-spark-20_2.12
-        JavaEsSpark.saveJsonToEs(siteDS.toJSON().toJavaRDD(), "sites/_doc");
+        JavaEsSpark.saveJsonToEs(siteDF.toJSON().toJavaRDD(), "sites/_doc");
     }
 }

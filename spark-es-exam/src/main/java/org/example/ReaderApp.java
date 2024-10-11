@@ -13,11 +13,11 @@ public class ReaderApp {
                 .appName("Es Spark SQL Reader")
                 .getOrCreate();
 
-        Dataset<Row> loadDS = spark.read().format("org.elasticsearch.spark.sql")
+        Dataset<Row> loadDF = spark.read().format("org.elasticsearch.spark.sql")
                 .option("es.nodes", "localhost")
                 .option("es.port", "9200")
                 .load("sites");
-        loadDS.show();
-        loadDS.printSchema();
+        loadDF.show();
+        loadDF.printSchema();
     }
 }
